@@ -18,11 +18,15 @@ This component is an assistive tool designed to improve user experience, but ple
 
 ## ⚡ Quick Start — 30 Seconds
 
+```bash
+npm install a11y-control
+```
+
 ```html
 <!-- 1. Load the component -->
-<script type="module" src="./src/a11y-control.js"></script>
+<script type="module" src="./node_modules/a11y-control/src/a11y-control.js"></script>
 
-<!-- 2. Add the tag (before </body>) -->
+<!-- 2. Add the tag -->
 <a11y-control lang="en"></a11y-control>
 ```
 
@@ -68,9 +72,15 @@ import './path/to/a11y-control.js';
 </script>
 ```
 
-### Via npm (local)
+### Via npm (recommended)
+
+```bash
+npm install a11y-control
+```
+
 ```js
-import './node_modules/a11y-control/src/a11y-control.js';
+// ES module import
+import 'a11y-control';
 ```
 
 ---
@@ -169,11 +179,11 @@ The component is fully keyboard-operable:
 ```
 src/
 ├── a11y-control.js       ← Entry point (import/script this)
-├── AccessibilityMenu.js     ← Custom Element class
-├── constants.js             ← Default preferences, i18n
-├── icons.js                 ← SVG icons
-├── styles.js                ← Shadow CSS + global styles
-└── reading-guide.js         ← Reading guide feature
+├── A11yControl.js        ← Custom Element class
+├── constants.js          ← Default preferences, i18n
+├── icons.js              ← SVG icons
+├── styles.js             ← Shadow CSS + global styles
+└── reading-guide.js      ← Reading guide feature
 ```
 
 ---
