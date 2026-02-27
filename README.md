@@ -1,30 +1,30 @@
 # `<accessibility-menu>`
 
-> Un menu d'accessibilité clé-en-main, conforme **WCAG 2.1 AA**, sous forme de Web Component natif.  
-> Zéro dépendance. Zéro build. Une balise.
+> A plug-and-play accessibility menu, **WCAG 2.1 AA** compliant, built as a native Web Component.  
+> Zero dependencies. Zero build. One single tag.
 
 ---
 
-## ⚡ Quick start — 30 secondes
+## ⚡ Quick Start — 30 Seconds
 
 ```html
-<!-- 1. Charger le composant -->
+<!-- 1. Load the component -->
 <script type="module" src="https://cdn.example.com/accessibility-menu.js"></script>
 
-<!-- 2. Ajouter la balise (avant </body>) -->
-<accessibility-menu lang="fr"></accessibility-menu>
+<!-- 2. Add the tag (before </body>) -->
+<accessibility-menu lang="en"></accessibility-menu>
 ```
 
-C'est tout. Le composant s'occupe du reste.
+That's it. The component handles the rest.
 
 ---
 
-## Intégration dans votre projet
+## Project Integration
 
-### HTML vanilla
+### Vanilla HTML
 ```html
 <script type="module" src="./src/accessibility-menu.js"></script>
-<accessibility-menu lang="fr"></accessibility-menu>
+<accessibility-menu lang="en"></accessibility-menu>
 ```
 
 ### React / Next.js
@@ -33,13 +33,14 @@ import { useEffect } from 'react';
 
 export default function App() {
   useEffect(() => {
-    import('./accessibility-menu.js');
+    // Dynamic import to ensure it only runs on the client
+    import('./path/to/accessibility-menu.js');
   }, []);
 
   return (
     <>
-      {/* votre app */}
-      <accessibility-menu lang="fr" />
+      {/* your app */}
+      <accessibility-menu lang="en" />
     </>
   );
 }
@@ -48,7 +49,7 @@ export default function App() {
 ### Vue
 ```vue
 <template>
-  <accessibility-menu lang="fr" />
+  <accessibility-menu lang="en" />
 </template>
 
 <script setup>
@@ -63,47 +64,48 @@ import './node_modules/accessibility-controls/src/accessibility-menu.js';
 
 ---
 
-## Attributs
+## Attributes
 
-| Attribut | Valeurs | Défaut |
+| Attribute | Values | Default |
 |---|---|---|
-| `lang` | `"fr"` \| `"en"` | `"en"` |
+| `lang` | `"en"` \| `"fr"` | `"en"` |
 | `position` | `"bottom-right"` \| `"bottom-left"` \| `"top-right"` \| `"top-left"` | `"bottom-right"` |
 
 ```html
-<!-- Exemples -->
+<!-- Examples -->
 <accessibility-menu lang="fr" position="bottom-left"></accessibility-menu>
 <accessibility-menu lang="en" position="top-right"></accessibility-menu>
 ```
 
 ---
 
-## Fonctionnalités
+## Features
 
-| Contrôle | Effet | Critère WCAG |
+| Control | Effect | WCAG Success Criterion |
 |---|---|---|
-| 🔡 Taille de police | 80 % → 200 % (pas de 10 %) | 1.4.4 Resize Text |
-| ◑ Contraste élevé | Fond noir, texte blanc, liens jaunes | 1.4.6 Contrast Enhanced |
-| ⬛ Niveaux de gris | `filter: grayscale(100%)` sur `<html>` | 1.4.11 Non-text Contrast |
-| 🔗 Surligner les liens | Gras + outline sur tous les `<a>` | 1.4.1 Use of Color |
-| T Police dyslexie | OpenDyslexic chargée à la demande | 1.4.8 Visual Presentation |
-| — Guide de lecture | Barre horizontale qui suit la souris | 1.4.8 Visual Presentation |
-| ⏸ Réduire animations | Toutes transitions/animations à 0 ms | 2.3.3 Animation |
+| 🔡 Font Size | 80% → 200% (10% increments) | 1.4.4 Resize Text |
+| ◑ High Contrast | Black background, white text, yellow links | 1.4.6 Contrast Enhanced |
+| ⬛ Grayscale | `filter: grayscale(100%)` on `<html>` | 1.4.11 Non-text Contrast |
+| 🔗 Highlight Links | Bold + outline on all `<a>` tags | 1.4.1 Use of Color |
+| T Dyslexia Font | OpenDyslexic loaded on demand | 1.4.8 Visual Presentation |
+| — Reading Guide | Horizontal bar following the cursor | 1.4.8 Visual Presentation |
+| ⏸ Reduce Motion | All transitions/animations set to 0ms | 2.3.3 Animation |
+| 🌙 Dark/Light Mode | Toggles dark theme for the page and menu | 1.4.3 Contrast (Minimum) |
 
-Les préférences sont **automatiquement sauvegardées** dans `localStorage` et restaurées à chaque visite.
+Preferences are **automatically saved** in `localStorage` and restored on every visit.
 
 ---
 
-## Thèmes — CSS custom properties
+## Theming — CSS Custom Properties
 
-Personnalisez l'apparence depuis votre feuille de style globale (les variables sont exposées via `:host`) :
+Customize the appearance from your global stylesheet (variables are exposed via `:host`):
 
 ```css
 accessibility-menu {
-  --a11y-accent:       #005fcc;   /* couleur principale (bouton, toggles actifs) */
+  --a11y-accent:       #005fcc;   /* Primary color (buttons, active toggles) */
   --a11y-accent-hover: #0047a3;
-  --a11y-bg:           #ffffff;   /* fond du panel */
-  --a11y-surface:      #f5f5f5;   /* fond des lignes au survol */
+  --a11y-bg:           #ffffff;   /* Panel background */
+  --a11y-surface:      #f5f5f5;   /* Row background on hover */
   --a11y-border:       #d0d0d0;
   --a11y-text:         #1a1a1a;
   --a11y-text-muted:   #555555;
@@ -114,20 +116,21 @@ accessibility-menu {
 
 ---
 
-## Classes CSS appliquées sur `<html>`
+## CSS Classes Applied to `<html>`
 
-Le composant ajoute / retire ces classes pour que **vos propres CSS** puissent aussi réagir :
+The component toggles these classes so **your own CSS** can also react:
 
-| Classe | Active quand |
+| Class | Active when |
 |---|---|
-| `a11y-high-contrast` | Contraste élevé activé |
-| `a11y-grayscale` | Niveaux de gris activés |
-| `a11y-dyslexia` | Police dyslexie activée |
-| `a11y-reduce-motion` | Réduire animations activé |
-| `a11y-highlight-links` | Surligner les liens activé |
+| `a11y-high-contrast` | High Contrast enabled |
+| `a11y-grayscale` | Grayscale enabled |
+| `a11y-dyslexia` | Dyslexia Font enabled |
+| `a11y-reduce-motion` | Reduce Motion enabled |
+| `a11y-highlight-links`| Highlight Links enabled |
+| `a11y-dark-mode` | Dark Mode enabled |
 
 ```css
-/* Exemple — adapter votre design au mode contraste élevé */
+/* Example — adapt your design to High Contrast mode */
 html.a11y-high-contrast .hero {
   border: 2px solid #fff;
 }
@@ -135,48 +138,48 @@ html.a11y-high-contrast .hero {
 
 ---
 
-## Clavier & accessibilité
+## Keyboard & Accessibility
 
-Le composant est entièrement utilisable au clavier :
+The component is fully keyboard-operable:
 
-| Touche | Action |
+| Key | Action |
 |---|---|
-| `Tab` | Naviguer entre les contrôles |
-| `Shift + Tab` | Naviguer en arrière |
-| `Enter` / `Space` | Activer un bouton ou toggle |
-| `Escape` | Fermer le panel, retour au bouton déclencheur |
+| `Tab` | Navigate between controls |
+| `Shift + Tab` | Navigate backward |
+| `Enter` / `Space` | Activate a button or toggle |
+| `Escape` | Close the panel, return focus to trigger button |
 
-**ARIA intégré :** `role="dialog"`, `aria-modal`, `aria-expanded`, `aria-checked` (`role="switch"`), `aria-live` sur le compteur de police, focus trap, restauration du focus à la fermeture.
+**Built-in ARIA:** `role="dialog"`, `aria-modal`, `aria-expanded`, `aria-checked` (`role="switch"`), `aria-live` on the font size counter, focus trap, and focus restoration.
 
 ---
 
-## Structure du projet
+## Project Structure
 
 ```
 src/
-├── accessibility-menu.js    ← entry point à importer/scripter
+├── accessibility-menu.js    ← Entry point (import/script this)
 ├── AccessibilityMenu.js     ← Custom Element class
-├── constants.js             ← préférences par défaut, i18n
+├── constants.js             ← Default preferences, i18n
 ├── icons.js                 ← SVG icons
-├── styles.js                ← Shadow CSS + styles globaux
-└── reading-guide.js         ← feature guide de lecture
+├── styles.js                ← Shadow CSS + global styles
+└── reading-guide.js         ← Reading guide feature
 ```
 
 ---
 
-## Dev local
+## Local Development
 
 ```bash
-# Lancer un serveur de démo
+# Start a dev server
 npm run dev
 # → http://localhost:3000/demo/
 ```
 
 ---
 
-## Compatibilité navigateurs
+## Browser Compatibility
 
-Tous les navigateurs modernes supportant **Custom Elements v1 + Shadow DOM** :
+All modern browsers supporting **Custom Elements v1 + Shadow DOM**:
 
 | Chrome | Firefox | Safari | Edge |
 |---|---|---|---|
@@ -184,6 +187,6 @@ Tous les navigateurs modernes supportant **Custom Elements v1 + Shadow DOM** :
 
 ---
 
-## Licence
+## License
 
-MIT — libre d'utilisation, modification et distribution.
+MIT — feel free to use, modify, and distribute.
